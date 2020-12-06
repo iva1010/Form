@@ -1,0 +1,85 @@
+<div class="container">
+  <form class="card" [formGroup]="form" (ngSubmit)="submit()">
+    <h1>Form</h1>
+
+    <div class="form-control">
+      <label>Имя</label>
+      <input type="text" placeholder="Имя" formControlName="name">
+    </div>
+
+    <div class="form-control">
+      <label>Фамилия</label>
+      <input type="text" placeholder="Фамилия" formControlName="lastName">
+    </div>
+
+    <div class="form-control">
+      <label>Email</label>
+      <input type="text" placeholder="Email" formControlName="email">
+      <div
+        *ngIf="form.get('email').invalid && form.get('email').touched"
+        class="validation"
+      >
+        <small *ngIf="form.get('email').errors.required">
+          Поле email не может быть пустым
+        </small>
+
+        <small *ngIf="form.get('email').errors.email">
+          Введите корректный email
+        </small>
+
+      </div>
+    </div>
+
+
+
+    <div class="form-control">
+      <label>Пароль</label>
+      <input type="password" placeholder="Пароль" formControlName="password">
+      <div
+        *ngIf="form.get('password').invalid && form.get('password').touched"
+        class="validation"
+      >
+        <small *ngIf="form.get('password').errors.required">
+          Пароль не может быть пустым
+        </small>
+
+        <small *ngIf="form.get('password').errors.minlength">
+          Длинна должна быть не менее {{form.get('password').errors.minlength.requiredLength}}.
+          Сейчасс колличество символов {{form.get('password').errors.minlength.actualLength}}
+        </small>
+
+        <small *ngIf="form.get('password').errors.pattern">
+          Пароль не может состоять только из спецсимволов
+        </small>
+      </div>
+    </div>
+    <!--<pre>{{form.get('password').errors.matchPassword | json}}</pre>-->
+    <div class="form-control">
+      <label>Подтвердите пароль</label>
+      <input type="password" placeholder="Повторите пароль" formControlName="doublePassword">
+      <div
+        *ngIf="form.get('doublePassword').invalid && form.get('doublePassword').touched"
+        class="validation"
+      >
+        <small *ngIf="form.get('doublePassword').errors.required">
+          Поддтвердите пароль
+        </small>
+
+        <small *ngIf="form.get('doublePassword').errors.required">
+          Поддтвердите пароль
+        </small>
+
+<!--    <small *ngIf="form.get('doublePassword').errors.checkPass">
+          Пароли не совпадают
+        </small>-->
+
+      </div>
+    </div>
+
+    <button class="btn" type="submit" [disabled]="form.invalid">Отправить</button>
+
+  </form>
+</div>
+
+
+
